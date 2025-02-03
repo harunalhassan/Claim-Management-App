@@ -3,12 +3,13 @@ const mongoose = require("mongoose");
 const claimRoutes = require("./routes/claimRoutes");
 const policyRoutes = require("./routes/policyRoutes");
 const policyholderRoutes = require("./routes/policyholderRoutes");
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 
 // MongoDB Connection
-const MONGO_URI = "mongodb://localhost:27017/claimsDB"; // Change if using MongoDB Atlas
+const MONGO_URI = process.env.MONGO_URI; // Change if using MongoDB Atlas
 mongoose
   .connect(MONGO_URI)
   .then(() => console.log(" MongoDB Connected"))
