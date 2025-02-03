@@ -1,11 +1,14 @@
-class Policyholder {
-  constructor(id, name, dob, contactDetails) {
-      this.id = id;
-      this.name = name;
-      this.dob = dob;
-      this.contactDetails = contactDetails;
-      this.policies = []; // Stores associated policy IDs
-  }
-}
+const mongoose = require('mongoose');
 
-module.exports = Policyholder;
+const policyholderSchema = new mongoose.Schema({
+  name: String,
+  dob: Date,
+  contactDetails: {
+    phone: String,
+    email: String,
+    address: String
+  },
+  policies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Policy' }]
+});
+
+module.exports = mongoose.model('Policyholder', policyholderSchema);

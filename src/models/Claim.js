@@ -1,13 +1,12 @@
-class Claim {
-  constructor(id, claimNumber, policyId, claimAmount, status, description, dateFiled) {
-      this.id = id;
-      this.claimNumber = claimNumber;
-      this.policyId = policyId;
-      this.claimAmount = claimAmount;
-      this.status = status; // Pending, Approved, Rejected
-      this.description = description;
-      this.dateFiled = dateFiled;
-  }
-}
+const mongoose = require('mongoose');
 
-module.exports = Claim;
+const claimSchema = new mongoose.Schema({
+  claimId: String,
+  policyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Policy' },
+  claimAmount: Number,
+  status: { type: String, enum: ['Pending', 'Approved', 'Rejected'], default: 'Pending' },
+  description: String,
+  createdAt: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model('Claim', claimSchema);
